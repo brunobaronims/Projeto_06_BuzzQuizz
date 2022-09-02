@@ -1,3 +1,5 @@
+load();
+
 async function getQuizzes() {
   try {
     const response = await axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
@@ -56,24 +58,35 @@ async function load() {
   renderQuiz(data);
 }
 
-load();
-
-function esconderLayout(){
-    const pegarQuizz = document.querySelector(".mainPage");
-    pegarQuizz.classList.add("escondido");
-
-    const quizzEscondido = document.querySelector(".quizz");
-    quizzEscondido.classList.remove("Quizz-escondido")
+function answerClick(event) {
+  const divClass = Array.from(event.parentElement.classList)[1];
+  const answers = Array.from(document.querySelectorAll(`.${divClass}`));
+  const clickedDiv = event.parentElement;
+  answers.forEach(answer => {
+    const children = answer.children;
+    Array.from(children).forEach(child => {
+      child.removeAttribute('onclick');
+    });
+    answer.classList.add('bloco-translucido', 'resposta-errada');
+  });
+  clickedDiv.classList.remove('bloco-translucido', 'resposta-errada');
+  clickedDiv.classList.add('resposta-certa');
+  const nextQuestion = clickedDiv.parentElement.parentElement.nextElementSibling;
+  if (nextQuestion) {
+    setTimeout(() => {
+      nextQuestion.scrollIntoView({ behavior: 'smooth' });
+    }, 2000);
+  }
 }
 
 
 let pontuacao = 0;
 
-  const verificaSeEhOcerto = (quadroselecionado) => {
-    if(quadroselecionado.isCorrectAnswer == true) {
-      pontuacao += 1;
-    }
-    if(pontuacao == 0) return "nivel 1"
-    if(pontuacao == 1) return "nivel 2"
-    if(pontuacao == 3) return "nivel 3"
+const verificaSeEhOcerto = (quadroselecionado) => {
+  if (quadroselecionado.isCorrectAnswer == true) {
+    pontuacao += 1;
+  }
+  if (pontuacao == 0) return "nivel 1"
+  if (pontuacao == 1) return "nivel 2"
+  if (pontuacao == 3) return "nivel 3"
 };

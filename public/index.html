@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    
+
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -19,56 +19,70 @@
     <header>
         <h1>BuzzQuizz</h1>
     </header>
-    <div class="quizz Quizz-escondido">
-      <div class="Quizz-header">
-        <div class="gradiente"></div>
-        <img
-          src="https://d2p7ncqs8iaoqd.cloudfront.net/uploads/2020/07/Hogwaarts.jpg"
-        />
-        <h1>O quão Potterhead é você?</h1>
-      </div>
-      <div class="quizz-box">
-        <div class="Pergunta">
-          <div class="quizz-pergunta">
-            <h2>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h2>
-          </div>
+    <div class="quiz-page page hidden">
+        <div class="Quizz-header">
+            <div class="gradiente"></div>
+            <img src="https://d2p7ncqs8iaoqd.cloudfront.net/uploads/2020/07/Hogwaarts.jpg" />
+            <h1>O quão Potterhead é você?</h1>
         </div>
-        <div class="first-second">
-          <div class="bloco">
-            <div class="board-one"></div>
-            <p class="p-resposta">Gatíneo</p>
-          </div>
-          <div class="bloco">
-            <div class="board-two"></div>
-            <p class="p-resposta">Ratata</p>
-          </div>
-        </div>
+        <div class="quizz-box">
+            <div class="Pergunta">
+                <div class="quizz-pergunta">
+                    <h2>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h2>
+                </div>
+            </div>
+            <div class="first-second">
+                <div class="bloco b1">
+                    <div onclick="answerClick(this)" class="board-one"></div>
+                    <p onclick="answerClick(this)" class="p-resposta">Gatíneo</p>
+                </div>
+                <div class="bloco b1">
+                    <div onclick="answerClick(this)" class="board-two"></div>
+                    <p onclick="answerClick(this)" class="p-resposta">Ratata</p>
+                </div>
+            </div>
 
-        <div class="third-fourth">
-          <div class="bloco">
-            <div class="board-three"></div>
-            <p class="p-resposta">Sapo-gordo</p>
-          </div>
-          <div class="bloco">
-            <div class="board-four"></div>
-            <p class="p-resposta">Mustela putorius (o Furão)</p>
-          </div>
+            <div class="third-fourth">
+                <div class="bloco b1">
+                    <div onclick="answerClick(this)" class="board-three"></div>
+                    <p onclick="answerClick(this)" class="p-resposta">Sapo-gordo</p>
+                </div>
+                <div class="bloco b1">
+                    <div onclick="answerClick(this)" class="board-four"></div>
+                    <p onclick="answerClick(this)" class="p-resposta">Mustela putorius (o Furão)</p>
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="quizz-box">
+            <div class="Pergunta">
+                <div class="quizz-pergunta">
+                    <h2>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h2>
+                </div>
+            </div>
+            <div class="first-second">
+                <div class="bloco b2">
+                    <div onclick="answerClick(this)" class="board-one"></div>
+                    <p onclick="answerClick(this)" class="p-resposta">Gatíneo</p>
+                </div>
+                <div class="bloco b2">
+                    <div onclick="answerClick(this)" class="board-two"></div>
+                    <p onclick="answerClick(this)" class="p-resposta">Ratata</p>
+                </div>
+            </div>
+
+            <div class="third-fourth">
+                <div class="bloco b2">
+                    <div onclick="answerClick(this)" class="board-three"></div>
+                    <p onclick="answerClick(this)" class="p-resposta">Sapo-gordo</p>
+                </div>
+                <div class="bloco b2">
+                    <div onclick="answerClick(this)" class="board-four"></div>
+                    <p onclick="answerClick(this)" class="p-resposta">Mustela putorius (o Furão)</p>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="mainPage page">
-        <div class="createQuizzBox">
-            <p>Você não criou nenhum</p>
-            <p>quizz ainda :(</p>
-            <h2 onclick="createQuizClick()">Criar Quizz</h2>
-        </div>
-        <div class="TodosOsQuizzes">
-            <p>Todos os Quizzes</p>
-        </div>
-        <div class="Quiz-container">
-        </div>
-    </div>
-    <div class="quiz-page page hidden">
         <div class="createQuizzBox">
             <p>Você não criou nenhum</p>
             <p>quizz ainda :(</p>

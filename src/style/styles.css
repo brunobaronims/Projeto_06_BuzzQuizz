@@ -239,7 +239,6 @@ header h1 {
     justify-content: center;
     align-items: center;
     margin-top: 70px;
-    background-color: 
 }
 
 .quizz-pergunta h2{
@@ -268,12 +267,28 @@ header h1 {
     background-color: chartreuse;
     
 }
-.bloco{
+.bloco {
     margin: 10px;
+    transition: opacity 0.2s;
 }
+
+.bloco-translucido {
+    opacity: 0.3;
+    transition: opacity 0.2s;
+}
+
 .p-resposta{
     margin-top: 5px;
+    width: fit-content;
+    transition: color 0.2s;
+}
 
+.resposta-errada {
+    color: #ff4b4b;
+}
+
+.resposta-certa {
+    color: #009c22;
 }
 
 .Quizz-escondido{
