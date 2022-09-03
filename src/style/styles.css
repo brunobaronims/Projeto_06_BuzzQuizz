@@ -34,16 +34,17 @@ header h1 {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    transition: visibility 0.5s, opacity 0.5s linear;
+    transition: visibility 0.2s, opacity 0.2s ease-out;
 }
 
 .visible {
     position: static;
     visibility: visible;
     opacity: 1;
+    display: flex;
 }
 
-.hidden {
+.hidden, .end-hidden {
     position: fixed;
     visibility: hidden;
     opacity: 0;
@@ -83,14 +84,11 @@ header h1 {
 }
 
 .Quiz-container {
-
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     width: 1050px;
     row-gap: 12px;
     column-gap: 15px;
-
-
 }
 
 .Quiz-item {
@@ -153,11 +151,6 @@ header h1 {
     height: 100%;
     position: absolute;
 }
-
-.escondido {
-    display: none;
-}
-
 
 .Quizz-header {
     width: 100%;
@@ -405,8 +398,6 @@ header h1 {
     align-items: center;
     flex-direction: column;
     display: none;
-    
-    
 }
 
 .Seu-quizz-esta-pronto {
@@ -459,8 +450,12 @@ header h1 {
    display: flex;
    flex-direction: column;
    transition: opacity 0.3s, visibility 0.3s linear;
-
 }
+
+.end-hidden {
+    display: none;
+}
+
 .borda{
     width: 48%;
     height: fit-content;
@@ -483,6 +478,7 @@ header h1 {
     color: #FFFFFF;
     font-size: 23px;
     font-weight: 700;
+    overflow: hidden;
 }
 
 .resultado-img-e-conteudo {
@@ -500,4 +496,5 @@ header h1 {
     font-size: 19px;
     margin-left: 15px;
     font-weight: bold;
+    overflow: hidden;
 }

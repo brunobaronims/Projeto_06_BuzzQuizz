@@ -120,6 +120,7 @@ async function renderQuiz(promise, id) {
 function quizListClick(target) {
   const list = Array.from(document.querySelectorAll('.page'));
   const quizPage = document.querySelector('.quiz-page');
+  document.querySelector('.resultado-final-do-quizz').querySelector('.Prosseguir-para-perguntas').setAttribute('onclick', `resetQuiz(${target.id})`)
   list.forEach(page => {
     page.classList.remove('visible');
     page.classList.add('hidden');
@@ -129,6 +130,7 @@ function quizListClick(target) {
     quizPage.classList.add('visible');
   }, 500);
   renderQuiz(Quizzes.data(), target.id);
+  document.querySelector('.Quizz-header').classList.remove('end-hidden');
 }
 
 function createQuizClick() {
@@ -142,6 +144,39 @@ function createQuizClick() {
     createQuizPage.classList.remove('hidden');
     createQuizPage.classList.add('visible');
   }, 500);
+}
+
+function resetQuiz(id) {
+  const quizEnd = document.querySelector('.resultado-final-do-quizz');
+  const answers = Array.from(document.querySelectorAll('.bloco'));
+  const attributes = ['resposta-certa', 'resposta-errada', 'bloco-translucido'];
+  document.querySelector('header').scrollIntoView({ behavior: 'smooth' });
+  answers.forEach(answer => {
+    const children = Array.from(answer.children);
+    children.forEach(child => {
+      child.setAttribute('onclick', `answerClick(this, ${id})`);
+    });
+    attributes.forEach(attribute => {
+      answer.classList.remove(`${attribute}`);
+    });
+  });
+  Nivel.reset();
+  quizEnd.classList.add('end-hidden');
+  quizEnd.classList.remove('visible');
+}
+
+function loadHome() {
+  const quizEnd = document.querySelector('.resultado-final-do-quizz');
+  document.querySelector('.quiz-page').classList.add('hidden');
+  document.querySelector('.quiz-page').classList.remove('visible');
+  document.querySelector('.mainPage').classList.add('visible');
+  document.querySelector('.mainPage').classList.remove('hidden');
+  document.querySelector('header').scrollIntoView({ behavior: 'smooth' });
+  document.querySelector('.quizz-box').innerHTML = '';
+  document.querySelector('.Quizz-header').classList.add('end-hidden');
+  Nivel.reset();
+  quizEnd.classList.add('end-hidden');
+  quizEnd.classList.remove('visible');
 }
 
 async function answerClick(target, id) {
@@ -191,8 +226,7 @@ async function answerClick(target, id) {
     quizEnd.querySelector('img').setAttribute('src', `${finalLevel.image}`);
     quizEnd.querySelector('p').innerHTML = finalLevel.text;
     quizEnd.classList.add('visible');
-    quizEnd.classList.remove('hidden');
-    Nivel.reset();
+    quizEnd.classList.remove('end-hidden');
     setTimeout(() => {
       quizEnd.scrollIntoView({ behavior: 'smooth' });
     }, 2000);
