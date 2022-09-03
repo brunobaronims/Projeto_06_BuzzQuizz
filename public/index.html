@@ -20,7 +20,7 @@
         <h1>BuzzQuizz</h1>
     </header>
 
-    <section class="Seu-quizz-esta-pronto">
+    <section class="Seu-quizz-esta-pronto hidden">
         <div class="tituloo">
             <h1>Seu quizz está pronto!</h1>
         </div>
@@ -37,7 +37,7 @@
         </div>
     </section>
 
-    <section class="agora-decida-os-niveis">
+    <section class="agora-decida-os-niveis hidden">
         <div class="tituloo">
             <h1>Agora, decida os níveis</h1>
         </div>
@@ -100,26 +100,26 @@
         </div>
     </section>
     <!--TELA DE CRIAÇÃO DE UM QUIZZ-->
-    <section class="tela-de-criacao-do-quiz">
+    <section class="tela-de-criacao-do-quiz hidden">
         <div class="introducao">
             <h1>Comece pelo começo</h1>
         </div>
         <div class="Monte-seu-quizz">
             <div class="titulo-do-quizz">
                 <input type="text" class="input" placeholder="Título do seu Quiz" />
-                <div class="URL-do-quizz">
-                    <input type="text" class="input" placeholder="URL da imagem do seu quizz" />
-                    <div class="qtd-de-perguntas-do-quizz">
-                        <input type="text" class="input" placeholder="Quantidade de perguntas do quizz" />
-                        <div class="qtd-de-niveis-do-quizz">
-                            <input type="text" class="input" placeholder="Quantidade de níveis do quizz" />
-                        </div>
-                    </div>
-                </div>
+            </div>
+            <div class="URL-do-quizz">
+                <input type="text" class="input" placeholder="URL da imagem do seu quizz" />
+            </div>
+            <div class="qtd-de-perguntas-do-quizz">
+                <input type="text" class="input" placeholder="Quantidade de perguntas do quizz" />
+            </div>
+            <div class="qtd-de-niveis-do-quizz">
+                <input type="text" class="input" placeholder="Quantidade de níveis do quizz" />
             </div>
         </div>
 
-        <div class="Prosseguir-para-perguntas">
+        <div onclick="moveToQuestions()" class="Prosseguir-para-perguntas">
             <p>Prosseguir para criar perguntas</p>
         </div>
     </section>
@@ -153,18 +153,6 @@
         </section>
     </div>
     <div class="mainPage page">
-        <div class="createQuizzBox">
-            <p>Você não criou nenhum</p>
-            <p>quizz ainda :(</p>
-            <h2 onclick="createQuizClick()">Criar Quizz</h2>
-        </div>
-        <div class="TodosOsQuizzes">
-            <p>Todos os Quizzes</p>
-        </div>
-        <div class="Quiz-container"></div>
-    </div>
-
-    <div class="quiz-creation page hidden">
         <div class="createQuizzBox">
             <p>Você não criou nenhum</p>
             <p>quizz ainda :(</p>

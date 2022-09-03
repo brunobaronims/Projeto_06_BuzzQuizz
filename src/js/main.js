@@ -1,3 +1,35 @@
+const newQuiz = (function () {
+  let data = { title: '', image: '', questions: [], levels: [] };
+
+  return {
+    addTitle(input) {
+      data.title = input;
+    },
+
+    addImage(input) {
+      data.image = input;
+    },
+
+    questionsNumber(input) {
+      data.questions.length = input;
+      data.questions.fill(null);
+    },
+
+    levelsNumber(input) {
+      data.levels.length = input;
+      data.levels.fill(null);
+    },
+
+    reset() {
+      data = { title: '', image: '', questions: [], levels: [] };
+    },
+
+    data() {
+      return data;
+    }
+  }
+})();
+
 const Quizzes = (function () {
   let quizList;
 
@@ -135,7 +167,7 @@ function quizListClick(target) {
 
 function createQuizClick() {
   const list = Array.from(document.querySelectorAll('.page'));
-  const createQuizPage = document.querySelector('.quiz-creation');
+  const createQuizPage = document.querySelector('.tela-de-criacao-do-quiz');
   list.forEach(page => {
     page.classList.remove('visible');
     page.classList.add('hidden');
@@ -144,6 +176,69 @@ function createQuizClick() {
     createQuizPage.classList.remove('hidden');
     createQuizPage.classList.add('visible');
   }, 500);
+}
+
+function isValidHttpUrl(string) {
+  let url;
+
+  try {
+    url = new URL(string);
+  } catch (_) {
+    return false;
+  }
+
+  return url.protocol === "http:" || url.protocol === "https:";
+}
+
+function isNumeric(str) {
+  if (typeof str != "string") {
+    return false;
+  }
+  return !isNaN(str) && !isNaN(parseFloat(str))
+}
+
+function validateInfo(title, image, questions, levels) {
+  if (title.length < 20 || title.length > 65) {
+    alert('Título deve ter enter 20 e 65 caracteres');
+    return false;
+  } else if (!isValidHttpUrl(image)) {
+    alert('Imagem deve ter URL válido');
+    return false;
+  } else if (!(isNumeric(questions)) || questions < 3 || !(Number.isInteger(Number((questions))))) {
+    alert('Quiz deve ter no mínimo 3 perguntas (apenas números inteiros)');
+    return false;
+  } else if (!(isNumeric(levels)) || levels < 2 || !(Number.isInteger(Number(levels)))) {
+    alert('Quiz deve ter no mínimo 2 níveis (apenas números inteiros)');
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function moveToQuestions() {
+  const info = Array.from(document.querySelector('.Monte-seu-quizz').children);
+  const title = info[0].querySelector('input').value;
+  const image = info[1].querySelector('input').value;
+  const questions = info[2].querySelector('input').value;
+  const levels = info[3].querySelector('input').value;
+
+  if (!info.find(input => input.querySelector('input').value === '')) {
+    if (validateInfo(title, image, questions, levels)) {
+      newQuiz.addTitle(title);
+      newQuiz.addImage(image);
+      newQuiz.questionsNumber(questions);
+      newQuiz.levelsNumber(levels);
+      
+      const infoPage = document.querySelector('.tela-de-criacao-do-quiz');
+      const questionsPage = document.querySelector('.crie-suas-perguntas');
+      infoPage.classList.add('hidden');
+      infoPage.classList.remove('visible');
+      questionsPage.classList.add('visible');
+      questionsPage.classList.remove('hidden');
+    };
+  } else {
+    alert('Obrigatório preencher todos os campos!')
+  }
 }
 
 function resetQuiz(id) {
@@ -185,14 +280,14 @@ async function answerClick(target, id) {
   const answers = Array.from(document.querySelectorAll(`.${divClass}`));
   const clickedDiv = target.parentElement;
   const questionDiv = clickedDiv.parentElement.parentElement;
-  const questionNumber = questionDiv.className.charAt(questionDiv.className.length - 1);
+  const questionIndex = questionDiv.className.charAt(questionDiv.className.length - 1);
   const nextQuestion = questionDiv.nextElementSibling;
   const currentQuiz = data.find(element => element.id === Number(id));
 
   answers.forEach(answer => {
     const answerIndex = answer.classList[1].charAt(answer.classList[1].length - 1);
 
-    if (currentQuiz.questions[questionNumber].answers[answerIndex].isCorrectAnswer) {
+    if (currentQuiz.questions[questionIndex].answers[answerIndex].isCorrectAnswer) {
       answer.classList.add('resposta-certa');
     } else {
       answer.classList.add('resposta-errada');
