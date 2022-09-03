@@ -80,7 +80,7 @@ header h1 {
     padding-right: 20px;
 }
 
-.createQuizzBox h2:hover {
+.createQuizzBox h2:hover, .Quiz-item:hover, .p-resposta:hover, .board:hover {
     cursor: pointer;
 }
 
@@ -104,10 +104,6 @@ header h1 {
     border-radius: 5px;
     position: relative;
 
-}
-
-.Quiz-item:hover {
-    cursor: pointer;
 }
 
 .TodosOsQuizzes {
@@ -180,6 +176,7 @@ header h1 {
 }
 
 .Quizz-header h1 {
+
     position: absolute;
     z-index: 4;
     color: #FFFFFF;
@@ -189,6 +186,7 @@ header h1 {
 }
 
 .gradiente {
+
     background: linear-gradient(to top,
             black,
             rgba(255, 0, 0, 0));
@@ -201,35 +199,9 @@ header h1 {
 }
 
 
-.first-second {
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px;
-
-}
-
-.board-one {
-    width: 330px;
-    height: 175px;
-    background-color: blue;
-
-}
-
 .blocoum {
     display: flex;
     flex-direction: column;
-
-}
-
-.board-two {
-    width: 330px;
-    height: 175px;
-    background-color: #EC362D;
-
-
-
 }
 
 .quizz-pergunta {
@@ -242,46 +214,25 @@ header h1 {
     align-self: center;
 }
 
-.Pergunta {
+.titulo-pergunta {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 70px;
-
 }
 
 .quizz-pergunta h2 {
     font-size: 23px;
     color: #FFFFFF;
 }
-
-.third-fourth {
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px;
-}
-
-.board-three {
+.board{
     width: 330px;
     height: 175px;
-    background-color: #382f2f;
-
-}
-
-.board-four {
-    width: 330px;
-    height: 175px;
-    background-color: chartreuse;
 }
 
 .bloco {
     margin: 10px;
-}
-
-.p-resposta {
-    margin-top: 5px;
+    transition: opacity 0.2s;
 }
 
 .Quizz-escondido {
@@ -407,6 +358,35 @@ header h1 {
     align-items: center;
     flex-direction: column;
     display: none;
+
+.bloco-translucido {
+    opacity: 0.3;
+    transition: opacity 0.2s;
+}
+
+.quizz-box {
+    width: 759px;
+}
+
+.respostas {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.p-resposta{
+    margin-top: 5px;
+    width: fit-content;
+    transition: color 0.2s;
+}
+
+.resposta-errada {
+    color: #ff4b4b;
+}
+
+.resposta-certa {
+    color: #009c22;
 }
 
 .tela-de-criacao-do-quiz {
