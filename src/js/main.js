@@ -22,7 +22,7 @@ const Quizzes = (function () {
   };
 })();
 
-const Nivel = ( function () { 
+const Nivel = (function () {
   let atual = 0;
 
   return {
@@ -32,6 +32,10 @@ const Nivel = ( function () {
 
     valor() {
       return atual;
+    },
+
+    reset() {
+      atual = 0;
     }
   }
 })();
@@ -55,6 +59,13 @@ async function renderQuizList(promise) {
   });
 };
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 async function renderQuiz(promise, id) {
   const data = await promise;
   const headerImage = document.querySelector('.Quizz-header').querySelector('img');
@@ -69,6 +80,7 @@ async function renderQuiz(promise, id) {
     const div = Object.assign(document.createElement('div'), { className: `pergunta${index}` });
     const tags = ['img', 'p'];
     const respostas = question.answers;
+    shuffleArray(respostas);
 
     div.appendChild(
       Object.assign(document.createElement('div'), { className: 'titulo-pergunta' })
@@ -158,25 +170,32 @@ async function answerClick(target, id) {
 
     answer.classList.add('bloco-translucido');
   });
-
   clickedDiv.classList.remove('bloco-translucido');
 
-  if (nextQuestion) {
+  if (Array.from(clickedDiv.classList).find(element => element === 'resposta-certa')) {
     Nivel.acerto();
+  }
+
+  if (nextQuestion) {
     setTimeout(() => {
       nextQuestion.scrollIntoView({ behavior: 'smooth' });
     }, 2000);
   } else {
-    const quizEnd = document.querySelector('.quiz-end');
+    const quizEnd = document.querySelector('.resultado-final-do-quizz');
     const acertos = Nivel.valor();
     const porcentagem = Math.round((acertos / currentQuiz.questions.length) * 100);
-    const sortedLevels = currentQuiz.levels.sort((a,b) => parseFloat(b.minValue) - parseFloat(a.minValue));
+    const sortedLevels = currentQuiz.levels.sort((a, b) => parseFloat(b.minValue) - parseFloat(a.minValue));
     const finalLevel = sortedLevels.find(element => element.minValue <= porcentagem);
-    console.log(finalLevel);
-    quizEnd.querySelector('h2').innerHTML = finalLevel.title;
-    //quizEnd.querySelector('.image-container').appendChild();
+
+    quizEnd.querySelector('h1').innerHTML = finalLevel.title;
+    quizEnd.querySelector('img').setAttribute('src', `${finalLevel.image}`);
+    quizEnd.querySelector('p').innerHTML = finalLevel.text;
     quizEnd.classList.add('visible');
     quizEnd.classList.remove('hidden');
+    Nivel.reset();
+    setTimeout(() => {
+      quizEnd.scrollIntoView({ behavior: 'smooth' });
+    }, 2000);
   };
 }
 

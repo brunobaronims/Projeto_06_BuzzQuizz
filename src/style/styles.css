@@ -78,7 +78,7 @@ header h1 {
     padding-right: 20px;
 }
 
-.createQuizzBox h2:hover, .Quiz-item:hover, .p-resposta:hover, .board:hover {
+.createQuizzBox h2:hover, .Quiz-item:hover, .p-resposta:hover, .board:hover, .Prosseguir-para-perguntas:hover, .voltar-para-home:hover {
     cursor: pointer;
 }
 
@@ -129,6 +129,7 @@ header h1 {
 }
 
 .text-card {
+    widtH: 100%;
     height: fit-content;
     display: flex;
     justify-content: center;
@@ -137,6 +138,7 @@ header h1 {
     left: 0;
     z-index: 2;
     padding-bottom: 20px;
+    overflow: hidden;
 
 }
 
