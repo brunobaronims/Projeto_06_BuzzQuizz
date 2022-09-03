@@ -364,14 +364,8 @@ header h1 {
     transition: opacity 0.2s;
 }
 
-.quizz-box, .quizz-end {
+.quizz-box{
     width: 759px;
-}
-
-.quizz-end {
-    height: 430px;
-    transition: visibility 0.3s, opacity 0.3s linear;
-
 }
 
 .respostas {
@@ -408,6 +402,7 @@ header h1 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    display: none;
     
     
 }
@@ -454,4 +449,53 @@ header h1 {
 
 .bloco-resposta-incorreta{
     margin-top: 20px;
+}
+
+.resultado-final-do-quizz{
+   justify-content: center;
+   align-items: center;
+   display: flex;
+   flex-direction: column;
+   transition: opacity 0.3s, visibility 0.3s linear;
+
+}
+.borda{
+    width: 48%;
+    height: fit-content;
+    border: 1px solid gainsboro;
+    border-radius: 2px;
+    padding: 20px;
+    box-shadow: gainsboro;
+}
+.porcentagem-de-acerto-box{
+    width: 100%;
+    height: 99px;
+    background-color: #EC362D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+
+}
+.porcentagem-de-acerto-box h1{
+    color: #FFFFFF;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.resultado-img-e-conteudo {
+    display: flex;
+    
+}
+
+.resultado-img-e-conteudo img{
+    width: 50%;
+    height: 50%;
+}
+
+.resultado-img-e-conteudo p {
+    color: #484848;
+    font-size: 19px;
+    margin-left: 15px;
+    font-weight: bold;
 }
