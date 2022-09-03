@@ -35,8 +35,6 @@ header h1 {
     flex-direction: column;
     align-items: center;
     transition: visibility 0.5s, opacity 0.5s linear;
-    display: none;
-    
 }
 
 .visible {
@@ -198,12 +196,6 @@ header h1 {
     position: absolute;
 }
 
-
-.blocoum {
-    display: flex;
-    flex-direction: column;
-}
-
 .quizz-pergunta {
     width: 688px;
     height: 138px;
@@ -233,6 +225,12 @@ header h1 {
 .bloco {
     margin: 10px;
     transition: opacity 0.2s;
+    width: 330px;
+}
+
+.bloco p {
+    overflow: hidden;
+    width: 330px;
 }
 
 .Quizz-escondido {
@@ -358,6 +356,7 @@ header h1 {
     align-items: center;
     flex-direction: column;
     display: none;
+}
 
 .bloco-translucido {
     opacity: 0.3;
