@@ -68,7 +68,8 @@ button {
 }
 
 .createQuizzBox {
-    width: 1051px;
+    max-width: 1051px;
+    width: 100%;
     height: 181px;
     margin-top: 100px;
     display: flex;
@@ -103,7 +104,6 @@ button {
 .Quiz-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    width: 1050px;
     row-gap: 12px;
     column-gap: 15px;
 }
@@ -120,7 +120,7 @@ button {
 }
 
 .TodosOsQuizzes {
-    width: 1050px;
+   
     margin-top: 100px;
     margin-bottom: 10px;
 }
@@ -407,6 +407,7 @@ button {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    
 }
 
 .crie-suas-perguntas {
@@ -534,4 +535,37 @@ button {
     .resultado-img-e-conteudo p {
         margin:20px;
     }
+    .Quiz-container{
+        grid-template-columns: 1fr;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    .Quizz-header{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .quiz-page{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .TodosOsQuizzes p {
+        text-align: center;
+    }
+    .tela-de-criacao-do-quiz{
+        width: 100%;
+    }
+    .input{
+        width: 100%;
+        width: 341px;
+    }
+    .pergunta-box{
+        width: 100%;
+    }
+    .pergunta-fechada{
+        width: 100%;
+    }
+    
 }
