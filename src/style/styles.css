@@ -34,6 +34,15 @@ header h1 {
     justify-content: center;
     flex-direction: column;
     align-items: center;
+}
+
+.mainPage,
+.quiz-page,
+.quiz-creation,
+.tela-de-criacao-do-quiz,
+.crie-suas-perguntas,
+.agora-decida-os-niveis,
+.Seu-quizz-esta-pronto {
     transition: visibility 0.2s, opacity 0.2s ease-out;
 }
 
@@ -259,6 +268,7 @@ header h1 {
 
 .Monte-seu-quizz {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-top: 50px;
@@ -351,7 +361,6 @@ header h1 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    display: none;
 }
 
 .bloco-translucido {
@@ -389,7 +398,6 @@ header h1 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    display: none;
 }
 
 .crie-suas-perguntas {
@@ -397,7 +405,6 @@ header h1 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    display: none;
 }
 
 .Seu-quizz-esta-pronto {
@@ -405,7 +412,6 @@ header h1 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    display: none;
 }
 
 .Seu-quizz-esta-pronto img {
