@@ -22,9 +22,24 @@ const Quizzes = (function () {
   };
 })();
 
+const Nivel = ( function () { 
+  let atual = 0;
+
+  return {
+    acerto() {
+      atual++;
+    },
+
+    valor() {
+      return atual;
+    }
+  }
+})();
+
 async function renderQuizList(promise) {
   const list = document.querySelector('.Quiz-container');
   const data = await promise;
+  console.log(data);
 
   data.forEach(quiz => {
     const quizTemplate = Object.assign(document.createElement('div'), { className: 'Quiz-item', id: `${quiz.id}` });
@@ -45,51 +60,48 @@ async function renderQuiz(promise, id) {
   const headerImage = document.querySelector('.Quizz-header').querySelector('img');
   const headerTitle = document.querySelector('.Quizz-header').querySelector('h1');
   const list = document.querySelector('.quizz-box');
+  const currentQuiz = data.find(element => element.id === Number(id));
 
-  data.forEach(quiz => {
-    if (quiz.id === Number(id)) {
-      headerImage.setAttribute('src', `${quiz.image}`);
-      headerTitle.innerHTML = quiz.title;
+  headerImage.setAttribute('src', `${currentQuiz.image}`);
+  headerTitle.innerHTML = currentQuiz.title;
 
-      quiz.questions.forEach((question, index) => {
-        const div = Object.assign(document.createElement('div'), { className: `pergunta${index}` });
-        const tags = ['img', 'p'];
-        const respostas = question.answers;
+  currentQuiz.questions.forEach((question, index) => {
+    const div = Object.assign(document.createElement('div'), { className: `pergunta${index}` });
+    const tags = ['img', 'p'];
+    const respostas = question.answers;
 
-        div.appendChild(
-          Object.assign(document.createElement('div'), { className: 'titulo-pergunta' })
-        );
-        div.querySelector('.titulo-pergunta').appendChild(
-          Object.assign(document.createElement('div'), { className: 'quizz-pergunta' })
-        );
-        div.querySelector('.quizz-pergunta').appendChild(
-          Object.assign(document.createElement('h2'), { innerHTML: `${question.title}` })
-        );
-        div.appendChild(
-          Object.assign(document.createElement('div'), { className: 'respostas' })
-        );
+    div.appendChild(
+      Object.assign(document.createElement('div'), { className: 'titulo-pergunta' })
+    );
+    div.querySelector('.titulo-pergunta').appendChild(
+      Object.assign(document.createElement('div'), { className: 'quizz-pergunta' })
+    );
+    div.querySelector('.quizz-pergunta').appendChild(
+      Object.assign(document.createElement('h2'), { innerHTML: `${question.title}` })
+    );
+    div.appendChild(
+      Object.assign(document.createElement('div'), { className: 'respostas' })
+    );
 
-        respostas.forEach((answer, step) => {
-          div.querySelector('.respostas').appendChild(
-            Object.assign(document.createElement('div'), { className: `bloco r${step} b${index}` })
-          );
-        });
+    respostas.forEach((answer, step) => {
+      div.querySelector('.respostas').appendChild(
+        Object.assign(document.createElement('div'), { className: `bloco r${step} b${index}` })
+      );
+    });
 
-        let blockList = div.querySelectorAll(`.b${index}`);
-        blockList.forEach((block, step) => {
-          tags.forEach(tag => {
-            block.appendChild(document.createElement(`${tag}`));
-            block.lastChild.setAttribute('onclick', `answerClick(this, ${id})`);
-          });
-          block.querySelector('img').classList.add(`board`);
-          block.querySelector('img').setAttribute('src', respostas[step].image);
-          block.querySelector('p').classList.add('p-resposta');
-          block.querySelector('p').innerHTML = respostas[step].text;
-        });
-
-        list.appendChild(div);
+    let blockList = div.querySelectorAll(`.b${index}`);
+    blockList.forEach((block, step) => {
+      tags.forEach(tag => {
+        block.appendChild(document.createElement(`${tag}`));
+        block.lastChild.setAttribute('onclick', `answerClick(this, ${id})`);
       });
-    }
+      block.querySelector('img').classList.add(`board`);
+      block.querySelector('img').setAttribute('src', respostas[step].image);
+      block.querySelector('p').classList.add('p-resposta');
+      block.querySelector('p').innerHTML = respostas[step].text;
+    });
+
+    list.appendChild(div);
   });
 }
 
@@ -128,18 +140,16 @@ async function answerClick(target, id) {
   const questionDiv = clickedDiv.parentElement.parentElement;
   const questionNumber = questionDiv.className.charAt(questionDiv.className.length - 1);
   const nextQuestion = questionDiv.nextElementSibling;
+  const currentQuiz = data.find(element => element.id === Number(id));
 
   answers.forEach(answer => {
     const answerIndex = answer.classList[1].charAt(answer.classList[1].length - 1);
-    data.forEach(quiz => {
-      if (Number(id) === quiz.id) {
-        if (quiz.questions[questionNumber].answers[answerIndex].isCorrectAnswer) {
-          answer.classList.add('resposta-certa');
-        } else {
-          answer.classList.add('resposta-errada');
-        };
-      };
-    });
+
+    if (currentQuiz.questions[questionNumber].answers[answerIndex].isCorrectAnswer) {
+      answer.classList.add('resposta-certa');
+    } else {
+      answer.classList.add('resposta-errada');
+    };
 
     const children = answer.children;
     Array.from(children).forEach(child => {
@@ -148,24 +158,27 @@ async function answerClick(target, id) {
 
     answer.classList.add('bloco-translucido');
   });
-  
+
   clickedDiv.classList.remove('bloco-translucido');
 
   if (nextQuestion) {
+    Nivel.acerto();
     setTimeout(() => {
       nextQuestion.scrollIntoView({ behavior: 'smooth' });
     }, 2000);
-  }
+  } else {
+    const quizEnd = document.querySelector('.quiz-end');
+    const acertos = Nivel.valor();
+    const porcentagem = Math.round((acertos / currentQuiz.questions.length) * 100);
+    const sortedLevels = currentQuiz.levels.sort((a,b) => parseFloat(b.minValue) - parseFloat(a.minValue));
+    const finalLevel = sortedLevels.find(element => element.minValue <= porcentagem);
+    console.log(finalLevel);
+    quizEnd.querySelector('h2').innerHTML = finalLevel.title;
+    //quizEnd.querySelector('.image-container').appendChild();
+    quizEnd.classList.add('visible');
+    quizEnd.classList.remove('hidden');
+  };
 }
-
-const verificaSeEhOcerto = (quadroselecionado) => {
-  if (quadroselecionado.isCorrectAnswer == true) {
-    pontuacao += 1;
-  }
-  if (pontuacao == 0) return "nivel 1"
-  if (pontuacao == 1) return "nivel 2"
-  if (pontuacao == 3) return "nivel 3"
-};
 
 Quizzes.load();
 renderQuizList(Quizzes.data());

@@ -192,12 +192,6 @@ header h1 {
     position: absolute;
 }
 
-.blocoum{
-    display: flex;
-    flex-direction: column;
-    
-}
-
 .quizz-pergunta{
     width: 688px;
     height: 138px;
@@ -235,8 +229,14 @@ header h1 {
     transition: opacity 0.2s;
 }
 
-.quizz-box {
+.quizz-box, .quizz-end {
     width: 759px;
+}
+
+.quizz-end {
+    height: 430px;
+    transition: visibility 0.3s, opacity 0.3s linear;
+
 }
 
 .respostas {
