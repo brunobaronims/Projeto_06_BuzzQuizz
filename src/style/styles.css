@@ -50,18 +50,20 @@ button {
 .tela-de-criacao-do-quiz,
 .crie-suas-perguntas,
 .agora-decida-os-niveis,
-.Seu-quizz-esta-pronto {
+.Seu-quizz-esta-pronto,
+.pergunta-box img,
+.pergunta-fechada img {
     transition: visibility 0.2s, opacity 0.2s ease-out;
 }
 
-.visible {
-    position: static;
-    visibility: visible;
-    opacity: 1;
+.visible, .pergunta-box div, .pergunta-fechada img, .question-index {
+    position: static!important;
+    visibility: visible!important;
+    opacity: 1!important;
     display: flex;
 }
 
-.hidden, .end-hidden {
+.hidden, .end-hidden, .pergunta-fechada div, .pergunta-box img, .pergunta-fechada h2 {
     position: fixed;
     visibility: hidden;
     opacity: 0;
@@ -97,7 +99,14 @@ button {
     padding-right: 20px;
 }
 
-.createQuizzBox h2:hover, .Quiz-item:hover, .p-resposta:hover, .board:hover, .Prosseguir-para-perguntas:hover, .voltar-para-home:hover {
+.createQuizzBox h2:hover, 
+.Quiz-item:hover, 
+.p-resposta:hover, 
+.board:hover, 
+.Prosseguir-para-perguntas:hover, 
+.voltar-para-home:hover 
+.pergunta-fechada img:hover,
+.Prosseguir-para-proxima-pagina:hover {
     cursor: pointer;
 }
 
@@ -116,7 +125,6 @@ button {
     text-align: center;
     border-radius: 5px;
     position: relative;
-
 }
 
 .TodosOsQuizzes {
@@ -135,7 +143,6 @@ button {
 .Quiz-item img {
     width: 100%;
     height: 100%;
-
 }
 
 .Quiz-item p {
@@ -154,7 +161,6 @@ button {
     z-index: 2;
     padding-bottom: 20px;
     overflow: hidden;
-
 }
 
 .gradient {
@@ -182,11 +188,9 @@ button {
 .Quizz-header img {
     width: 100%;
     height: 100%;
-
 }
 
 .Quizz-header h1 {
-
     position: absolute;
     z-index: 4;
     color: #FFFFFF;
@@ -196,13 +200,11 @@ button {
 }
 
 .gradiente {
-
     background: linear-gradient(to top,
             black,
             rgba(255, 0, 0, 0));
     z-index: 1;
     top: 0;
-
     width: 100%;
     height: 100%;
     position: absolute;
@@ -244,10 +246,6 @@ button {
 .bloco p {
     overflow: hidden;
     width: 330px;
-}
-
-.Quizz-escondido {
-    display: none;
 }
 
 .introducao {
@@ -321,7 +319,26 @@ button {
 .pergunta-box h2 {
     color: #000000;
     font-weight: bold;
-    margin: 20px;
+    margin: 20px 0;
+}
+
+.question-index {
+    visibility: visible;
+    opacity: 1;
+}
+
+.pergunta-box h2:first-child {
+    margin: 0;
+}
+
+.pergunta-box h2:last-of-type {
+    margin: 20px 0 0 0;
+}
+
+.pergunta-box div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .pergunta-fechada {
@@ -402,22 +419,7 @@ button {
     color: #009c22;
 }
 
-.tela-de-criacao-do-quiz {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    
-}
-
-.crie-suas-perguntas {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.Seu-quizz-esta-pronto {
+.crie-suas-perguntas, .Seu-quizz-esta-pronto, .tela-de-criacao-do-quiz {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -458,6 +460,10 @@ button {
 
 .bloco-resposta-incorreta{
     margin-top: 20px;
+}
+
+.bloco-resposta-incorreta:first-child{
+    margin-top: 0;
 }
 
 .resultado-final-do-quizz{
