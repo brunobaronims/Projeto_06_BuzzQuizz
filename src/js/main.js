@@ -15,6 +15,10 @@ const newQuiz = (function () {
       data.questions.fill(null);
     },
 
+    setQuestions(input) {
+      data.questions = input;
+    },
+
     levelsNumber(input) {
       data.levels.length = input;
       data.levels.fill(null);
@@ -228,9 +232,10 @@ function moveToQuestions() {
       newQuiz.addImage(image);
       newQuiz.questionsNumber(questions);
       newQuiz.levelsNumber(levels);
-      
+
       const infoPage = document.querySelector('.tela-de-criacao-do-quiz');
       const questionsPage = document.querySelector('.crie-suas-perguntas');
+      renderQuestions();
       infoPage.classList.add('hidden');
       infoPage.classList.remove('visible');
       questionsPage.classList.add('visible');
@@ -239,6 +244,154 @@ function moveToQuestions() {
   } else {
     alert('Obrigatório preencher todos os campos!')
   }
+}
+
+function validateQuestions() {
+  const questions = Array.from(document.querySelector('.Perguntas').children);
+  const reg = /^#[0-9A-F]{6}$/i;
+  const error = [];
+  const values = [];
+
+  questions.forEach(question => {
+    const object = { title: '', color: '', answers: [] }
+    const divs = Array.from(question.querySelectorAll('div'));
+    const questionTitle = Array.from(divs[0].children);
+    const correctAnswer = Array.from(divs[1].children);
+    const wrongAnswers = Array.from(divs[2].children);
+    let atLeastOneAnswer = false;
+
+    if (questionTitle[0].value === '' || questionTitle[0].value.length < 20 ||
+      questionTitle[0].value.length > 65) {
+      error.push('error');
+    } else {
+      object.title = questionTitle[0].value;
+    };
+
+    if (!(reg.test(`${questionTitle[1].value}`))) {
+      error.push('error');
+    } else {
+      object.color = questionTitle[1].value;
+    }
+
+    if (correctAnswer[0].value === '' ||
+      !isValidHttpUrl(correctAnswer[1].value)) {
+      error.push('error');
+    } else {
+      const correctAnsObj = {
+        text: `${correctAnswer[0].value}`,
+        image: `${correctAnswer[1].value}`, isCorrectAnswer: true
+      };
+      object.answers.push(correctAnsObj);
+    }
+
+    wrongAnswers.forEach(answer => {
+      if (answer.firstElementChild.value !== '' &&
+        isValidHttpUrl(answer.lastElementChild.value)) {
+        atLeastOneAnswer = true;
+        let wrongAnsObj = {
+          text: `${answer.firstElementChild.value}`,
+          image: `${answer.lastElementChild.value}`, isCorrectAnswer: false
+        };
+        object.answers.push(wrongAnsObj);
+      }
+    })
+    if (!atLeastOneAnswer) {
+      error.push('error');
+    }
+    values.push(object);
+  });
+
+
+  if (error.length > 0) {
+    return false;
+  } else {
+    return values;
+  }
+}
+
+function moveToLevels() {
+  const values = validateQuestions();
+  if (values) {
+    newQuiz.setQuestions(values);
+    const questionsPage = document.querySelector('.crie-suas-perguntas');
+    const levelsPage = document.querySelector('.agora-decida-os-niveis');
+    questionsPage.classList.add('hidden');
+    questionsPage.classList.remove('visible');
+    levelsPage.classList.add('visible');
+    levelsPage.classList.remove('hidden');
+  }
+}
+
+function renderQuestions() {
+  const questionsPage = document.querySelector('.Perguntas');
+  const questions = newQuiz.data().questions;
+  questions.forEach((question, index) => {
+    const newQuestion = Object.assign(document.createElement('div'), { className: 'pergunta pergunta-fechada' });
+    const containers = Array(3).fill(null).map(() => { return document.createElement('div') });
+    const inputs = Array(2).fill(null).map(() => {
+      return Object.assign(
+        document.createElement('input'), { type: 'text', className: 'input' }
+      );
+    });
+    const placeholders = ['Texto da pergunta', 'Cor de fundo da pergunta', 'Resposta correta', 'URL da imagem',
+      'Resposta incorreta 1', 'URL da imagem 1', 'Resposta incorreta 2', 'URL da imagem 2', 'Resposta incorreta 3',
+      'URL da imagem 3'];
+    const headerDivs = Array(3).fill(null).map(() => { return document.createElement('h2') });
+    headerDivs[0].classList.add('question-index');
+    const headerText = [`Pergunta ${index + 1}`, 'Resposta correta', 'Respostas incorretas'];
+    const incorretas = Array(3).fill(null).map(() => {
+      return Object.assign(
+        document.createElement('div'), { className: 'bloco-resposta-incorreta' }
+      );
+    })
+
+    incorretas.forEach((resposta, step) => {
+      containers[2].appendChild(resposta.cloneNode());
+      inputs.forEach(input => {
+        containers[2].childNodes[step].appendChild(input.cloneNode());
+      });
+    });
+
+    inputs.forEach((input, step) => {
+      inputs.forEach(i => {
+        containers[step].appendChild(i.cloneNode());
+      });
+    });
+
+    headerDivs.forEach((header, step) => {
+      header.innerHTML = headerText[step];
+    });
+
+    containers.forEach((container, step) => {
+      newQuestion.appendChild(headerDivs[step]);
+      newQuestion.appendChild(container);
+    });
+
+    const renderedInputs = Array.from(newQuestion.querySelectorAll('.input'));
+    renderedInputs.forEach((input, i) => {
+      input.setAttribute('placeholder', `${placeholders[i]}`)
+    })
+    newQuestion.appendChild(
+      Object.assign(document.createElement('img'), { src: './images/caderneta.svg' })
+    );
+    newQuestion.querySelector('img').setAttribute('onclick', 'showQuestion(this)');
+
+    questionsPage.appendChild(newQuestion);
+  });
+  questionsPage.querySelector('div').classList.add('pergunta-box');
+  questionsPage.querySelector('div').classList.remove('pergunta-fechada');
+}
+
+function showQuestion(target) {
+  const activeQuestions = Array.from(document.querySelectorAll('.pergunta-box'));
+  const questionTop = target.parentElement.querySelector('h2');
+  activeQuestions.forEach(question => {
+    question.classList.add('pergunta-fechada');
+    question.classList.remove('pergunta-box');
+  })
+  target.parentElement.classList.remove('pergunta-fechada');
+  target.parentElement.classList.add('pergunta-box');
+  questionTop.scrollIntoView({ behavior: 'smooth' });
 }
 
 function resetQuiz(id) {
