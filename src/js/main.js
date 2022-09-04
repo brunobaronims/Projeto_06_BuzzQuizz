@@ -348,12 +348,15 @@ function moveToLevels() {
   const values = validateQuestions();
   if (values) {
     newQuiz.setQuestions(values);
-    const questionsPage = document.querySelector('.crie-suas-perguntas');
-    const levelsPage = document.querySelector('.agora-decida-os-niveis');
-    questionsPage.classList.add('hidden');
-    questionsPage.classList.remove('visible');
-    levelsPage.classList.add('visible');
-    levelsPage.classList.remove('hidden');
+    const firstPage = document.querySelector('.crie-suas-perguntas');
+    const nextPage = document.querySelector('.agora-decida-os-niveis');
+    const div = document.querySelector('.qtd-de-niveis-do-quizz');
+    const niveis = Number(div.querySelector('input').value);
+    firstPage.classList.remove('visible');
+    firstPage.classList.add('hidden');
+    nextPage.classList.remove('hidden');
+    nextPage.classList.add('visible');
+    questionsList(niveis);
   }
 }
 
@@ -607,8 +610,6 @@ function questionsList(numberOfQuestions) {
   form.appendChild(button);
 }
 
-questionsList();
-
 function checkForm(arrayTitle, arrayPercentage, arrayURL, arrayDescription) {
   let errors = [];
   let allPercentages = [];
@@ -630,11 +631,11 @@ function checkForm(arrayTitle, arrayPercentage, arrayURL, arrayDescription) {
     const isValidUrl = (urlString) => {
       var urlPattern = new RegExp(
         "^(https?:\\/\\/)?" + // validate protocol
-          "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // validate domain name
-          "((\\d{1,3}\\.){3}\\d{1,3}))" + // validate OR ip (v4) address
-          "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // validate port and path
-          "(\\?[;&a-z\\d%_.~+=-]*)?" + // validate query string
-          "(\\#[-a-z\\d_]*)?$",
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // validate domain name
+        "((\\d{1,3}\\.){3}\\d{1,3}))" + // validate OR ip (v4) address
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // validate port and path
+        "(\\?[;&a-z\\d%_.~+=-]*)?" + // validate query string
+        "(\\#[-a-z\\d_]*)?$",
         "i"
       ); // validate fragment locator
       return !!urlPattern.test(urlString);
