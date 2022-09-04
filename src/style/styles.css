@@ -24,6 +24,14 @@ header h1 {
 
 }
 
+button {
+    color: #fff;
+    font-weight: 700;
+    font-size: 23px;
+    border: none;
+    cursor: pointer;
+}
+
 .mainPage,
 .quiz-page,
 .quiz-creation {
@@ -60,7 +68,8 @@ header h1 {
 }
 
 .createQuizzBox {
-    width: 1051px;
+    max-width: 1051px;
+    width: 100%;
     height: 181px;
     margin-top: 100px;
     display: flex;
@@ -95,7 +104,6 @@ header h1 {
 .Quiz-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    width: 1050px;
     row-gap: 12px;
     column-gap: 15px;
 }
@@ -112,7 +120,7 @@ header h1 {
 }
 
 .TodosOsQuizzes {
-    width: 1050px;
+   
     margin-top: 100px;
     margin-bottom: 10px;
 }
@@ -283,13 +291,14 @@ header h1 {
     justify-content: center;
     align-items: center;
     background-color: #EC362D;
+    color: #fff;
 }
 
 
-.Prosseguir-para-perguntas p {
+/* .Prosseguir-para-perguntas p {
     color: #FFF5F4;
     font-size: 21px;
-}
+} */
 
 
 .tituloo h1 {
@@ -398,6 +407,7 @@ header h1 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    
 }
 
 .crie-suas-perguntas {
@@ -455,7 +465,9 @@ header h1 {
    align-items: center;
    display: flex;
    flex-direction: column;
-   transition: opacity 0.3s, visibility 0.3s linear;
+   width: 100%;
+   
+
 }
 
 .end-hidden {
@@ -463,12 +475,13 @@ header h1 {
 }
 
 .borda{
-    width: 48%;
+    width: 759px;
     height: fit-content;
     border: 1px solid gainsboro;
     border-radius: 2px;
     padding: 20px;
     box-shadow: gainsboro;
+    
 }
 .porcentagem-de-acerto-box{
     width: 100%;
@@ -478,6 +491,7 @@ header h1 {
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
+    width: 100%;
 
 }
 .porcentagem-de-acerto-box h1{
@@ -489,6 +503,7 @@ header h1 {
 
 .resultado-img-e-conteudo {
     display: flex;
+    
     
 }
 
@@ -502,5 +517,55 @@ header h1 {
     font-size: 19px;
     margin-left: 15px;
     font-weight: bold;
-    overflow: hidden;
+}
+
+.quiz-page{
+    width: 100%;
+}
+
+@media(max-width:1100px){
+    .resultado-img-e-conteudo img{
+        width: 100%;
+        height: 100%;
+    }
+    .resultado-img-e-conteudo {
+        flex-direction: column;
+
+    }
+    .resultado-img-e-conteudo p {
+        margin:20px;
+    }
+    .Quiz-container{
+        grid-template-columns: 1fr;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    .Quizz-header{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .quiz-page{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .TodosOsQuizzes p {
+        text-align: center;
+    }
+    .tela-de-criacao-do-quiz{
+        width: 100%;
+    }
+    .input{
+        width: 100%;
+        width: 341px;
+    }
+    .pergunta-box{
+        width: 100%;
+    }
+    .pergunta-fechada{
+        width: 100%;
+    }
+    
 }
