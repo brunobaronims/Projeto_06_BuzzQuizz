@@ -465,7 +465,7 @@ function renderQuestions() {
     });
     newQuestion.appendChild(
       Object.assign(document.createElement("img"), {
-        src: "./images/caderneta.svg",
+        src: "./public/images/caderneta.svg",
       })
     );
     newQuestion
