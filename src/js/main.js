@@ -1,5 +1,6 @@
 const newQuiz = (function () {
   let data = { title: "", image: "", questions: [], levels: [] };
+  let failsafe = false;
 
   return {
     addTitle(input) {
@@ -36,6 +37,18 @@ const newQuiz = (function () {
     data() {
       return data;
     },
+
+    setFailsafe() {
+      failsafe = true;
+    },
+
+    removeFailsafe() {
+      failsafe = false;
+    },
+
+    failsafe() {
+      return failsafe;
+    }
   };
 })();
 
@@ -369,6 +382,7 @@ function validateQuestions() {
 }
 
 function moveToLevels() {
+  newQuiz.removeFailsafe();
   const values = validateQuestions();
   if (values) {
     newQuiz.setQuestions(values);
@@ -667,6 +681,7 @@ function questionsList(numberOfQuestions) {
 }
 
 function checkForm(arrayTitle, arrayPercentage, arrayURL, arrayDescription) {
+  console.log('checkForm rodou');
   let errors = [];
   let allPercentages = [];
 
@@ -723,6 +738,8 @@ function createlvls(
   convertedURL,
   description
 ) {
+
+  console.log('createlvls rodou');
   const div = document.querySelector(".qtd-de-niveis-do-quizz");
   const niveis = Number(div.querySelector("input").value);
 
@@ -741,37 +758,43 @@ function createlvls(
 }
 
 async function postQuiz() {
-  try {
-    const endPage = document.querySelector('.Seu-quizz-esta-pronto');
-    const endImage = endPage.querySelector('.imagemdoquizz').querySelector('img');
-    const endText = endPage.querySelector('.imagemdoquizz').querySelector('p');
-    const levelsPage = document.querySelector('.agora-decida-os-niveis');
-    const quizButton = endPage.querySelector('.Prosseguir-para-perguntas');
+  if (!newQuiz.failsafe()) {
+    try {
+      newQuiz.setFailsafe();
+      console.log('postQuiz rodou');
+      const endPage = document.querySelector('.Seu-quizz-esta-pronto');
+      const endImage = endPage.querySelector('.imagemdoquizz').querySelector('img');
+      const endText = endPage.querySelector('.imagemdoquizz').querySelector('p');
+      const levelsPage = document.querySelector('.agora-decida-os-niveis');
+      const quizButton = endPage.querySelector('.Prosseguir-para-perguntas');
+      const form = document.querySelector("form");
 
-    const response = await axios.post(
-      "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", newQuiz.data()
-    );
-    localStorage.setItem(`${response.data.id}`, true);
-    
-    document.querySelector('.Perguntas').innerHTML = '';
-    document.getElementById('selecionar-perguntas').innerHTML = '';
-    document.querySelector('.Quiz-container').innerHTML = '';
-    document.querySelector('.user-quizzes').innerHTML = '';
+      const response = await axios.post(
+        "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", newQuiz.data()
+      );
+      localStorage.setItem(`${response.data.id}`, true);
 
-    Quizzes.load();
-    renderQuizList(Quizzes.data());
+      document.querySelector('.Perguntas').innerHTML = '';
+      document.getElementById('selecionar-perguntas').innerHTML = '';
+      document.querySelector('.Quiz-container').innerHTML = '';
+      document.querySelector('.user-quizzes').innerHTML = '';
 
-    newQuiz.reset();
-    
-    endText.innerHTML = `${response.data.title}`;
-    endImage.setAttribute('src', `${response.data.image}`)
-    endPage.setAttribute('class', 'Seu-quizz-esta-pronto visible');
-    levelsPage.setAttribute('class', 'agora-decida-os-niveis hidden');
-    quizButton.setAttribute('onclick', `loadNewQuiz(${response.data.id})`);
+      Quizzes.load();
+      renderQuizList(Quizzes.data());
 
-    return;
-  } catch (error) {
-    console.error("Não foi possivel fazer o post: ", error);
+      newQuiz.reset();
+
+      endText.innerHTML = `${response.data.title}`;
+      endImage.setAttribute('src', `${response.data.image}`)
+      endPage.setAttribute('class', 'Seu-quizz-esta-pronto visible');
+      levelsPage.setAttribute('class', 'agora-decida-os-niveis hidden');
+      quizButton.setAttribute('onclick', `loadNewQuiz(${response.data.id})`);
+      return;
+    } catch (error) {
+      console.error("Não foi possivel fazer o post: ", error);
+      return;
+    }
+  } else {
     return;
   }
 }
