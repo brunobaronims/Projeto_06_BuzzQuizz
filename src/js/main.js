@@ -83,6 +83,10 @@ const Nivel = (function () {
   };
 })();
 
+Quizzes.load();
+renderQuizList(Quizzes.data());
+
+
 async function renderQuizList(promise) {
   const data = await promise;
 
@@ -115,7 +119,7 @@ function addQuizToList(quiz) {
   if (localStorage.getItem(quiz.id)) {
     emptyList.setAttribute('class', 'createQuizzBox hidden');
     userList.querySelector('.seus-novos-quizzes').setAttribute('class', 'seus-novos-quizzes visible');
-    userList.appendChild(quizTemplate);
+    userList.querySelector('.user-quizzes').appendChild(quizTemplate);
   } else {
     serverList.appendChild(quizTemplate);
   }
@@ -748,11 +752,16 @@ async function postQuiz() {
       "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", newQuiz.data()
     );
     localStorage.setItem(`${response.data.id}`, true);
+    
+    document.querySelector('.Perguntas').innerHTML = '';
+    document.getElementById('selecionar-perguntas').innerHTML = '';
+    document.querySelector('.Quiz-container').innerHTML = '';
+    document.querySelector('.user-quizzes').innerHTML = '';
+
     Quizzes.load();
     renderQuizList(Quizzes.data());
-    
+
     newQuiz.reset();
-    document.querySelector('.Perguntas').innerHTML = '';
     
     endImage.setAttribute('src', `${newQuiz.data().image}`)
     endText.innerHTML = `${newQuiz.data().title}`;
@@ -782,6 +791,3 @@ function loadNewQuiz(id) {
   }, 500);
   renderQuiz(Quizzes.data(), id);
 }
-
-Quizzes.load();
-renderQuizList(Quizzes.data());
