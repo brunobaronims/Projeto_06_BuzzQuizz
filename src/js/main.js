@@ -25,7 +25,6 @@ const newQuiz = (function () {
     },
     setLevels(input) {
       data.levels.push(input);
-      console.log(data);
     },
     resetLevels() {
       data.levels = [];
@@ -86,7 +85,6 @@ const Nivel = (function () {
 
 async function renderQuizList(promise) {
   const data = await promise;
-  console.log(data);
 
   data.forEach((quiz) => {
     addQuizToList(quiz);
