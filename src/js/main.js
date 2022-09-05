@@ -750,7 +750,9 @@ async function postQuiz() {
     localStorage.setItem(`${response.data.id}`, true);
     Quizzes.load();
     renderQuizList(Quizzes.data());
+    
     newQuiz.reset();
+    document.querySelector('.Perguntas').innerHTML = '';
     
     endImage.setAttribute('src', `${newQuiz.data().image}`)
     endText.innerHTML = `${newQuiz.data().title}`;
