@@ -583,7 +583,7 @@ button {
 .user-quizzes {
     display: flex;
     flex-direction: row;
-    overflow-x: scroll;
+    flex-wrap: wrap;
 }
 
 @media(max-width:1100px) {

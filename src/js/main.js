@@ -763,8 +763,8 @@ async function postQuiz() {
 
     newQuiz.reset();
     
-    endImage.setAttribute('src', `${newQuiz.data().image}`)
-    endText.innerHTML = `${newQuiz.data().title}`;
+    endText.innerHTML = `${response.data.title}`;
+    endImage.setAttribute('src', `${response.data.image}`)
     endPage.setAttribute('class', 'Seu-quizz-esta-pronto visible');
     levelsPage.setAttribute('class', 'agora-decida-os-niveis hidden');
     quizButton.setAttribute('onclick', `loadNewQuiz(${response.data.id})`);
