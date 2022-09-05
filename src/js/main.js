@@ -95,7 +95,8 @@ async function renderQuizList(promise) {
 
 function addQuizToList(quiz) {
   const serverList = document.querySelector(".Quiz-container");
-  const userList = document.querySelector('.createQuizzBox');
+  const emptyList = document.querySelector('.createQuizzBox');
+  const userList = document.querySelector('.newquiz-content');
 
   const quizTemplate = Object.assign(document.createElement("div"), {
     className: "Quiz-item",
@@ -114,10 +115,8 @@ function addQuizToList(quiz) {
     quizTemplate.appendChild(Child);
   });
   if (localStorage.getItem(quiz.id)) {
-    Array.from(userList.children).forEach(child => {
-      child.classList.add('hidden');
-    })
-    userList.querySelector('button').setAttribute('class', 'visible');
+    emptyList.setAttribute('class', 'createQuizzBox hidden');
+    userList.querySelector('.seus-novos-quizzes').setAttribute('class', 'seus-novos-quizzes visible');
     userList.appendChild(quizTemplate);
   } else {
     serverList.appendChild(quizTemplate);
@@ -753,6 +752,7 @@ async function postQuiz() {
     localStorage.setItem(`${response.data.id}`, true);
     Quizzes.load();
     renderQuizList(Quizzes.data());
+    newQuiz.reset();
     
     endImage.setAttribute('src', `${newQuiz.data().image}`)
     endText.innerHTML = `${newQuiz.data().title}`;
@@ -767,7 +767,7 @@ async function postQuiz() {
   }
 }
 
-async function loadNewQuiz(id) {
+function loadNewQuiz(id) {
   const endPage = document.querySelector('.Seu-quizz-esta-pronto');
   const quizPage = document.querySelector(".quiz-page");
   document

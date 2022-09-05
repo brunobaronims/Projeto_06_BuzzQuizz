@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -26,7 +23,7 @@
     </div>
     <div class="imagemdoquizz">
       <div class="gradientee"></div>
-      <img/>
+      <img />
       <p></p>
     </div>
     <div class="Prosseguir-para-perguntas">
@@ -47,16 +44,13 @@
 
   <!-- TELA DE CRIAÇÃO DE PERGUNTAS-->
   <section class="crie-suas-perguntas hidden">
-
     <div class="tituloo">
       <h1>Crie suas perguntas</h1>
     </div>
-    <div class="Perguntas">
-    </div>
+    <div class="Perguntas"></div>
     <div onclick="moveToLevels()" class="Prosseguir-para-proxima-pagina">
       <p>Prosseguir para criar níveis</p>
     </div>
-
   </section>
   <!--TELA DE CRIAÇÃO DE UM QUIZZ-->
   <section class="tela-de-criacao-do-quiz hidden">
@@ -96,8 +90,7 @@
         <h1><span></span></h1>
         <div class="resultado-img-e-conteudo">
           <img />
-          <p>
-          </p>
+          <p></p>
         </div>
       </div>
       <div class="Prosseguir-para-perguntas">
@@ -109,11 +102,17 @@
     </section>
   </div>
   <div class="mainPage">
-    <div class="createQuizzBox">
-      <p>Você não criou nenhum</p>
-      <p>quizz ainda :(</p>
-      <h2 onclick="createQuizClick()">Criar Quizz</h2>
-      <button onclick="createQuizClick()" class="hidden"></button>
+    <div class="newquiz-content">
+      <div class="seus-novos-quizzes hidden">
+        <p>Seus Quizzes</p>
+        <button onclick="createQuizClick()"> + </button>
+
+      </div>
+      <div class="createQuizzBox">
+        <p>Você não criou nenhum</p>
+        <p>quizz ainda :(</p>
+        <h2 onclick="createQuizClick()">Criar Quizz</h2>
+      </div>
     </div>
     <div class="TodosOsQuizzes">
       <p>Todos os Quizzes</p>
@@ -134,7 +133,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="./src/js/main.js"></script>
+  <script src="../src/js/main.js"></script>
 </body>
 
 </html>
