@@ -760,7 +760,7 @@ function createlvls(
 async function postQuiz() {
   if (!newQuiz.failsafe()) {
     try {
-      newQuiz.setFailsafe();
+      
       console.log('postQuiz rodou');
       const endPage = document.querySelector('.Seu-quizz-esta-pronto');
       const endImage = endPage.querySelector('.imagemdoquizz').querySelector('img');
@@ -783,6 +783,7 @@ async function postQuiz() {
       renderQuizList(Quizzes.data());
 
       newQuiz.reset();
+      newQuiz.setFailsafe();
 
       endText.innerHTML = `${response.data.title}`;
       endImage.setAttribute('src', `${response.data.image}`)
