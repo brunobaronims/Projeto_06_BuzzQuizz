@@ -114,9 +114,9 @@ function addQuizToList(quiz) {
     quizTemplate.appendChild(Child);
   });
   if (localStorage.getItem(quiz.id)) {
-    //Array.from(userList.children).forEach(child => {
-    //  child.classList.add('hidden');
-    //})
+    Array.from(userList.children).forEach(child => {
+      child.classList.add('hidden');
+    })
     userList.querySelector('button').setAttribute('class', 'visible');
     userList.appendChild(quizTemplate);
   } else {
