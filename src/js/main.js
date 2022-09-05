@@ -681,7 +681,6 @@ function questionsList(numberOfQuestions) {
 }
 
 function checkForm(arrayTitle, arrayPercentage, arrayURL, arrayDescription) {
-  console.log('checkForm rodou');
   let errors = [];
   let allPercentages = [];
 
@@ -739,7 +738,6 @@ function createlvls(
   description
 ) {
 
-  console.log('createlvls rodou');
   const div = document.querySelector(".qtd-de-niveis-do-quizz");
   const niveis = Number(div.querySelector("input").value);
 
@@ -761,7 +759,6 @@ async function postQuiz() {
   if (!newQuiz.failsafe()) {
     try {
       
-      console.log('postQuiz rodou');
       const endPage = document.querySelector('.Seu-quizz-esta-pronto');
       const endImage = endPage.querySelector('.imagemdoquizz').querySelector('img');
       const endText = endPage.querySelector('.imagemdoquizz').querySelector('p');
