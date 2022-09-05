@@ -35,7 +35,7 @@ button {
 
 .mainPage,
 .quiz-page,
-.quiz-creation {
+.crie-suas-perguntas {
     margin: 0 auto;
     width: 100%;
     min-height: 100vh;
@@ -47,7 +47,7 @@ button {
 
 .mainPage,
 .quiz-page,
-.quiz-creation,
+.crie-suas-perguntas,
 .tela-de-criacao-do-quiz,
 .crie-suas-perguntas,
 .agora-decida-os-niveis,
@@ -68,7 +68,6 @@ button {
 }
 
 .hidden,
-.end-hidden,
 .pergunta-fechada div,
 .pergunta-box img,
 .pergunta-fechada h2 {
@@ -254,7 +253,7 @@ button {
 
 .bloco p {
     overflow: hidden;
-    width: 330px;
+    width: fit-content;
 }
 
 .introducao {
@@ -483,10 +482,6 @@ button {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-}
-
-.end-hidden {
-    display: none;
 }
 
 .borda {
