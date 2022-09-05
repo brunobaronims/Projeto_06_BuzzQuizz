@@ -524,7 +524,8 @@ async function answerClick(target, id) {
       (element) => element.minValue <= porcentagem
     );
 
-    quizEnd.querySelector("h1").innerHTML = finalLevel.title;
+    quizEnd.querySelector('span').innerHTML = `${porcentagem}% de acerto: `
+    quizEnd.querySelector("h1").innerHTML += finalLevel.title;
     quizEnd.querySelector("img").setAttribute("src", `${finalLevel.image}`);
     quizEnd.querySelector("p").innerHTML = finalLevel.text;
     quizEnd.classList.add("visible");
