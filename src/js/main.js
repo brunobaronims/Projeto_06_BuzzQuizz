@@ -115,14 +115,17 @@ function addQuizToList(quiz) {
 
   const quizTemplate = Object.assign(document.createElement("div"), {
     className: "Quiz-item",
-    id: `${quiz.id}`,
+    id: `${quiz.id}`
   });
+  quizTemplate.setAttribute("onclick", "quizListClick(this)");
+  quizTemplate.setAttribute('data-identifier', 'quizz-card');
+
   const children = [
     Object.assign(document.createElement("img"), { src: `${quiz.image}` }),
     Object.assign(document.createElement("div"), { className: "gradient" }),
     Object.assign(document.createElement("div"), { className: "text-card" }),
   ];
-  quizTemplate.setAttribute("onclick", "quizListClick(this)");
+
   children[2].appendChild(
     Object.assign(document.createElement("p"), { innerHTML: `${quiz.title}` })
   );
@@ -163,6 +166,7 @@ async function renderQuiz(promise, id) {
     const div = Object.assign(document.createElement("div"), {
       className: `pergunta${index}`,
     });
+    div.setAttribute('data-identifier', 'question');
     const tags = ["img", "p"];
     const respostas = question.answers;
     shuffleArray(respostas);
@@ -203,6 +207,7 @@ async function renderQuiz(promise, id) {
         block.appendChild(document.createElement(`${tag}`));
         block.lastChild.setAttribute("onclick", `answerClick(this, ${id})`);
       });
+      block.setAttribute('data-identifier', 'answer');
       block.querySelector("img").classList.add(`board`);
       block.querySelector("img").setAttribute("src", respostas[step].image);
       block.querySelector("p").classList.add("p-resposta");
@@ -408,6 +413,7 @@ function renderQuestions() {
     const newQuestion = Object.assign(document.createElement("div"), {
       className: "pergunta pergunta-fechada",
     });
+    newQuestion.setAttribute('data-identifier', 'question-form');
     const containers = Array(3)
       .fill(null)
       .map(() => {
@@ -486,6 +492,9 @@ function renderQuestions() {
     newQuestion
       .querySelector("img")
       .setAttribute("onclick", "showQuestion(this)");
+    newQuestion
+      .querySelector('img')
+      .setAttribute('data-identifier', 'expand');
 
     questionsPage.appendChild(newQuestion);
   });

@@ -85,7 +85,7 @@
     </div>
     <div class="quizz-box"></div>
     <div class="quiz-end"></div>
-    <section class="resultado-final-do-quizz hidden">
+    <section data-identifier="quizz-result" class="resultado-final-do-quizz hidden">
       <div class="borda">
         <h1><span></span></h1>
         <div class="resultado-img-e-conteudo">
@@ -105,20 +105,20 @@
     <div class="newquiz-content">
       <div class="seus-novos-quizzes hidden">
         <p>Seus Quizzes</p>
-        <button onclick="createQuizClick()"> + </button>
+        <button data-identifier="create-quizz" onclick="createQuizClick()"> + </button>
 
       </div>
-      <div class="user-quizzes"></div>
+      <div data-identifier="user-quizzes" class="user-quizzes"></div>
       <div class="createQuizzBox">
         <p>Você não criou nenhum</p>
         <p>quizz ainda :(</p>
-        <h2 onclick="createQuizClick()">Criar Quizz</h2>
+        <h2 data-identifier="create-quizz" onclick="createQuizClick()">Criar Quizz</h2>
       </div>
     </div>
     <div class="TodosOsQuizzes">
       <p>Todos os Quizzes</p>
     </div>
-    <div class="Quiz-container"></div>
+    <div data-identifier="general-quizzes" class="Quiz-container"></div>
   </div>
 
   <div class="quiz-creation hidden">
