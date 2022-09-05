@@ -80,12 +80,17 @@ button {
     max-width: 1051px;
     width: 100%;
     height: 181px;
-    margin-top: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     border: 1px dashed #d5d5d5;
+}
+
+.newquiz-content{
+    margin-top: 100px;
+    width: 100%;
+    max-width: 1051px;
 }
 
 .createQuizzBox p {
@@ -138,6 +143,8 @@ button {
 
     margin-top: 100px;
     margin-bottom: 10px;
+    flex-direction: row;
+    
 }
 
 .TodosOsQuizzes p {
@@ -460,6 +467,7 @@ button {
 
 .voltar-para-home {
     margin-top: 20px;
+    margin-bottom: 60px;
 }
 
 .voltar-para-home h2 {
@@ -494,6 +502,16 @@ button {
 
 }
 
+.borda h1{
+    padding: 40px;
+    background-color: #EC362D;
+    font-size: 23px;
+    font-weight: bold;
+    color: #FFFFFF;
+
+
+}
+
 .porcentagem-de-acerto-box {
     width: 100%;
     height: 99px;
@@ -515,6 +533,7 @@ button {
 
 .resultado-img-e-conteudo {
     display: flex;
+    margin-top: 20px;
 
 
 }
@@ -529,10 +548,38 @@ button {
     font-size: 19px;
     margin-left: 15px;
     font-weight: bold;
+    flex-wrap: wrap;
+    width: 50%;
+    word-wrap: break-word;
 }
 
 .quiz-page {
     width: 100%;
+}
+
+.seus-novos-quizzes{
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+}
+
+.seus-novos-quizzes p {
+    font-weight: bold;
+    color: black;
+    font-size: 20px;
+    margin-top: 5px;
+
+}
+
+.seus-novos-quizzes button {
+    background-color: #EC362D;
+    width: 31px;
+    height: 30px;
+    border-radius: 100%;
+    margin-left: 10px;
+    margin-bottom: 10px;
+
+
 }
 
 @media(max-width:1100px) {
@@ -548,6 +595,8 @@ button {
 
     .resultado-img-e-conteudo p {
         margin: 20px;
+        
+        
     }
 
     .Quiz-container {
@@ -569,10 +618,8 @@ button {
         align-items: center;
     }
 
-    .TodosOsQuizzes p {
-        text-align: center;
-    }
-
+    
+    
     .tela-de-criacao-do-quiz {
         width: 100%;
     }
