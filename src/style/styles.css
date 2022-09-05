@@ -410,7 +410,8 @@ button {
 }
 
 .quizz-box {
-    width: 759px;
+    max-width: 759px;
+    width: 100%;
 }
 
 .respostas {
@@ -490,10 +491,12 @@ button {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    width: 100%;
 }
 
 .borda {
-    width: 759px;
+    width: 100%;
+    max-width: 759px;
     height: fit-content;
     border: 1px solid gainsboro;
     border-radius: 2px;
@@ -508,6 +511,8 @@ button {
     font-size: 23px;
     font-weight: bold;
     color: #FFFFFF;
+    flex-wrap: wrap;
+    word-wrap: break-word;
 
 
 }
@@ -553,9 +558,7 @@ button {
     word-wrap: break-word;
 }
 
-.quiz-page {
-    width: 100%;
-}
+
 
 .seus-novos-quizzes{
     display: flex;
