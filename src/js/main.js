@@ -23,7 +23,13 @@ const newQuiz = (function () {
       data.levels.length = input;
       data.levels.fill(null);
     },
-
+    setLevels(input) {
+      data.levels.push(input);
+      console.log(data);
+    },
+    resetLevels() {
+      data.levels = [];
+    },
     reset() {
       data = { title: "", image: "", questions: [], levels: [] };
     },
@@ -267,75 +273,82 @@ function moveToQuestions() {
       newQuiz.questionsNumber(questions);
       newQuiz.levelsNumber(levels);
 
-      const infoPage = document.querySelector('.tela-de-criacao-do-quiz');
-      const questionsPage = document.querySelector('.crie-suas-perguntas');
+      const infoPage = document.querySelector(".tela-de-criacao-do-quiz");
+      const questionsPage = document.querySelector(".crie-suas-perguntas");
       renderQuestions();
-      infoPage.classList.add('hidden');
-      infoPage.classList.remove('visible');
-      questionsPage.classList.add('visible');
-      questionsPage.classList.remove('hidden');
-    };
-
+      infoPage.classList.add("hidden");
+      infoPage.classList.remove("visible");
+      questionsPage.classList.add("visible");
+      questionsPage.classList.remove("hidden");
+    }
   } else {
     alert("Obrigatório preencher todos os campos!");
   }
 }
 
 function validateQuestions() {
-  const questions = Array.from(document.querySelector('.Perguntas').children);
+  const questions = Array.from(document.querySelector(".Perguntas").children);
   const reg = /^#[0-9A-F]{6}$/i;
   const error = [];
   const values = [];
 
-  questions.forEach(question => {
-    const object = { title: '', color: '', answers: [] }
-    const divs = Array.from(question.querySelectorAll('div'));
+  questions.forEach((question) => {
+    const object = { title: "", color: "", answers: [] };
+    const divs = Array.from(question.querySelectorAll("div"));
     const questionTitle = Array.from(divs[0].children);
     const correctAnswer = Array.from(divs[1].children);
     const wrongAnswers = Array.from(divs[2].children);
     let atLeastOneAnswer = false;
 
-    if (questionTitle[0].value === '' || questionTitle[0].value.length < 20 ||
-      questionTitle[0].value.length > 65) {
-      error.push('error');
+    if (
+      questionTitle[0].value === "" ||
+      questionTitle[0].value.length < 20 ||
+      questionTitle[0].value.length > 65
+    ) {
+      error.push("error");
     } else {
       object.title = questionTitle[0].value;
-    };
+    }
 
-    if (!(reg.test(`${questionTitle[1].value}`))) {
-      error.push('error');
+    if (!reg.test(`${questionTitle[1].value}`)) {
+      error.push("error");
     } else {
       object.color = questionTitle[1].value;
     }
 
-    if (correctAnswer[0].value === '' ||
-      !isValidHttpUrl(correctAnswer[1].value)) {
-      error.push('error');
+    if (
+      correctAnswer[0].value === "" ||
+      !isValidHttpUrl(correctAnswer[1].value)
+    ) {
+      error.push("error");
     } else {
       const correctAnsObj = {
         text: `${correctAnswer[0].value}`,
-        image: `${correctAnswer[1].value}`, isCorrectAnswer: true
+        image: `${correctAnswer[1].value}`,
+        isCorrectAnswer: true,
       };
       object.answers.push(correctAnsObj);
     }
 
-    wrongAnswers.forEach(answer => {
-      if (answer.firstElementChild.value !== '' &&
-        isValidHttpUrl(answer.lastElementChild.value)) {
+    wrongAnswers.forEach((answer) => {
+      if (
+        answer.firstElementChild.value !== "" &&
+        isValidHttpUrl(answer.lastElementChild.value)
+      ) {
         atLeastOneAnswer = true;
         let wrongAnsObj = {
           text: `${answer.firstElementChild.value}`,
-          image: `${answer.lastElementChild.value}`, isCorrectAnswer: false
+          image: `${answer.lastElementChild.value}`,
+          isCorrectAnswer: false,
         };
         object.answers.push(wrongAnsObj);
       }
-    })
+    });
     if (!atLeastOneAnswer) {
-      error.push('error');
+      error.push("error");
     }
     values.push(object);
   });
-
 
   if (error.length > 0) {
     return false;
@@ -348,50 +361,78 @@ function moveToLevels() {
   const values = validateQuestions();
   if (values) {
     newQuiz.setQuestions(values);
-    const firstPage = document.querySelector('.crie-suas-perguntas');
-    const nextPage = document.querySelector('.agora-decida-os-niveis');
-    const div = document.querySelector('.qtd-de-niveis-do-quizz');
-    const niveis = Number(div.querySelector('input').value);
-    firstPage.classList.remove('visible');
-    firstPage.classList.add('hidden');
-    nextPage.classList.remove('hidden');
-    nextPage.classList.add('visible');
+    const firstPage = document.querySelector(".crie-suas-perguntas");
+    const nextPage = document.querySelector(".agora-decida-os-niveis");
+    const div = document.querySelector(".qtd-de-niveis-do-quizz");
+    const niveis = Number(div.querySelector("input").value);
+    firstPage.classList.remove("visible");
+    firstPage.classList.add("hidden");
+    nextPage.classList.remove("hidden");
+    nextPage.classList.add("visible");
     questionsList(niveis);
   }
 }
 
 function renderQuestions() {
-  const questionsPage = document.querySelector('.Perguntas');
+  const questionsPage = document.querySelector(".Perguntas");
   const questions = newQuiz.data().questions;
   questions.forEach((question, index) => {
-    const newQuestion = Object.assign(document.createElement('div'), { className: 'pergunta pergunta-fechada' });
-    const containers = Array(3).fill(null).map(() => { return document.createElement('div') });
-    const inputs = Array(2).fill(null).map(() => {
-      return Object.assign(
-        document.createElement('input'), { type: 'text', className: 'input' }
-      );
+    const newQuestion = Object.assign(document.createElement("div"), {
+      className: "pergunta pergunta-fechada",
     });
-    const placeholders = ['Texto da pergunta', 'Cor de fundo da pergunta', 'Resposta correta', 'URL da imagem',
-      'Resposta incorreta 1', 'URL da imagem 1', 'Resposta incorreta 2', 'URL da imagem 2', 'Resposta incorreta 3',
-      'URL da imagem 3'];
-    const headerDivs = Array(3).fill(null).map(() => { return document.createElement('h2') });
-    headerDivs[0].classList.add('question-index');
-    const headerText = [`Pergunta ${index + 1}`, 'Resposta correta', 'Respostas incorretas'];
-    const incorretas = Array(3).fill(null).map(() => {
-      return Object.assign(
-        document.createElement('div'), { className: 'bloco-resposta-incorreta' }
-      );
-    })
+    const containers = Array(3)
+      .fill(null)
+      .map(() => {
+        return document.createElement("div");
+      });
+    const inputs = Array(2)
+      .fill(null)
+      .map(() => {
+        return Object.assign(document.createElement("input"), {
+          type: "text",
+          className: "input",
+        });
+      });
+    const placeholders = [
+      "Texto da pergunta",
+      "Cor de fundo da pergunta",
+      "Resposta correta",
+      "URL da imagem",
+      "Resposta incorreta 1",
+      "URL da imagem 1",
+      "Resposta incorreta 2",
+      "URL da imagem 2",
+      "Resposta incorreta 3",
+      "URL da imagem 3",
+    ];
+    const headerDivs = Array(3)
+      .fill(null)
+      .map(() => {
+        return document.createElement("h2");
+      });
+    headerDivs[0].classList.add("question-index");
+    const headerText = [
+      `Pergunta ${index + 1}`,
+      "Resposta correta",
+      "Respostas incorretas",
+    ];
+    const incorretas = Array(3)
+      .fill(null)
+      .map(() => {
+        return Object.assign(document.createElement("div"), {
+          className: "bloco-resposta-incorreta",
+        });
+      });
 
     incorretas.forEach((resposta, step) => {
       containers[2].appendChild(resposta.cloneNode());
-      inputs.forEach(input => {
+      inputs.forEach((input) => {
         containers[2].childNodes[step].appendChild(input.cloneNode());
       });
     });
 
     inputs.forEach((input, step) => {
-      inputs.forEach(i => {
+      inputs.forEach((i) => {
         containers[step].appendChild(i.cloneNode());
       });
     });
@@ -405,31 +446,37 @@ function renderQuestions() {
       newQuestion.appendChild(container);
     });
 
-    const renderedInputs = Array.from(newQuestion.querySelectorAll('.input'));
+    const renderedInputs = Array.from(newQuestion.querySelectorAll(".input"));
     renderedInputs.forEach((input, i) => {
-      input.setAttribute('placeholder', `${placeholders[i]}`)
-    })
+      input.setAttribute("placeholder", `${placeholders[i]}`);
+    });
     newQuestion.appendChild(
-      Object.assign(document.createElement('img'), { src: './images/caderneta.svg' })
+      Object.assign(document.createElement("img"), {
+        src: "./images/caderneta.svg",
+      })
     );
-    newQuestion.querySelector('img').setAttribute('onclick', 'showQuestion(this)');
+    newQuestion
+      .querySelector("img")
+      .setAttribute("onclick", "showQuestion(this)");
 
     questionsPage.appendChild(newQuestion);
   });
-  questionsPage.querySelector('div').classList.add('pergunta-box');
-  questionsPage.querySelector('div').classList.remove('pergunta-fechada');
+  questionsPage.querySelector("div").classList.add("pergunta-box");
+  questionsPage.querySelector("div").classList.remove("pergunta-fechada");
 }
 
 function showQuestion(target) {
-  const activeQuestions = Array.from(document.querySelectorAll('.pergunta-box'));
-  const questionTop = target.parentElement.querySelector('h2');
-  activeQuestions.forEach(question => {
-    question.classList.add('pergunta-fechada');
-    question.classList.remove('pergunta-box');
-  })
-  target.parentElement.classList.remove('pergunta-fechada');
-  target.parentElement.classList.add('pergunta-box');
-  questionTop.scrollIntoView({ behavior: 'smooth' });
+  const activeQuestions = Array.from(
+    document.querySelectorAll(".pergunta-box")
+  );
+  const questionTop = target.parentElement.querySelector("h2");
+  activeQuestions.forEach((question) => {
+    question.classList.add("pergunta-fechada");
+    question.classList.remove("pergunta-box");
+  });
+  target.parentElement.classList.remove("pergunta-fechada");
+  target.parentElement.classList.add("pergunta-box");
+  questionTop.scrollIntoView({ behavior: "smooth" });
 }
 
 function resetQuiz(id) {
@@ -597,6 +644,7 @@ function questionsList(numberOfQuestions) {
   button.type = "submit";
   button.innerHTML = "Finalizar Quizz";
   button.classList.add("Prosseguir-para-proxima-pagina");
+  
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -614,29 +662,34 @@ function questionsList(numberOfQuestions) {
 function checkForm(arrayTitle, arrayPercentage, arrayURL, arrayDescription) {
   let errors = [];
   let allPercentages = [];
+  
+  const convertedTitle = Object.values(arrayTitle);
+  const convertedPercentage = Object.values(arrayPercentage);
+  const convertedURL = Object.values(arrayURL);
+  const description = Object.values(arrayDescription);
 
-  Object.values(arrayTitle).map((e) => {
+  convertedTitle.map((e) => {
     const value = e.value;
     if (value.length < 10) errors.push("titulo");
   });
 
-  Object.values(arrayPercentage).map((e) => {
+  convertedPercentage.map((e) => {
     const value = e.value;
     allPercentages.push(value);
     if (value < 0 || value > 100) errors.push("porcentagem");
   });
 
-  Object.values(arrayURL).map((e) => {
+  convertedURL.map((e) => {
     const value = e.value;
 
     const isValidUrl = (urlString) => {
       var urlPattern = new RegExp(
         "^(https?:\\/\\/)?" + // validate protocol
-        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // validate domain name
-        "((\\d{1,3}\\.){3}\\d{1,3}))" + // validate OR ip (v4) address
-        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // validate port and path
-        "(\\?[;&a-z\\d%_.~+=-]*)?" + // validate query string
-        "(\\#[-a-z\\d_]*)?$",
+          "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // validate domain name
+          "((\\d{1,3}\\.){3}\\d{1,3}))" + // validate OR ip (v4) address
+          "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // validate port and path
+          "(\\?[;&a-z\\d%_.~+=-]*)?" + // validate query string
+          "(\\#[-a-z\\d_]*)?$",
         "i"
       ); // validate fragment locator
       return !!urlPattern.test(urlString);
@@ -645,7 +698,7 @@ function checkForm(arrayTitle, arrayPercentage, arrayURL, arrayDescription) {
     if (!isValidUrl(value)) errors.push("url");
   });
 
-  Object.values(arrayDescription).map((e) => {
+  description.map((e) => {
     const value = e.value;
     if (value < 30) errors.push("descricao");
   });
@@ -654,4 +707,42 @@ function checkForm(arrayTitle, arrayPercentage, arrayURL, arrayDescription) {
 
   if (errors.length > 0) return alert("ERRO! ALGUM CAMPO ESTA ERRADO!");
   alert("DEU CERTO!");
+
+  createlvls(convertedTitle, convertedPercentage, convertedURL, description);
+}
+
+function createlvls(
+  convertedTitle,
+  convertedPercentage,
+  convertedURL,
+  description
+) {
+  const div = document.querySelector(".qtd-de-niveis-do-quizz");
+  const niveis = Number(div.querySelector("input").value);
+
+  newQuiz.resetLevels();
+
+  for (let i = 0; i < niveis; i++) {
+    const obj = {
+      title: convertedTitle[i].value,
+      minValue: convertedPercentage[i].value,
+      text: description[i].value,
+      image: convertedURL[i].value,
+    };
+    newQuiz.setLevels(obj);
+  }
+  postQuiz();
+}
+
+async function postQuiz() {
+  try {
+    const response = await axios.post(
+      "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", newQuiz.data()
+    );
+    console.log(response);
+    return
+  } catch (error) {
+    console.error("Não foi possivel fazer o post: ", error);
+    return;
+  }
 }
